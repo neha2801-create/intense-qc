@@ -650,10 +650,10 @@ def compare_target_to_neighbour(target, neighbour, high_or_dry, station=None, ch
                 for d in range(1, 3 + 1):
                     frac_drydays[d] = np.trunc((1.0 - (float(d) / 15.0)) * 10 ** 2) / (10 ** 2)
                 conditions = [
-                    (df['ts1'] == 1.0) & (df['ts2'] == 1.0),
-                    (df['ts1'] == 1.0) & (df['ts2'] < 1.0) & (df['ts2'] >= frac_drydays[1]),
-                    (df['ts1'] == 1.0) & (df['ts2'] < frac_drydays[1]) & (df['ts2'] >= frac_drydays[2]),
-                    (df['ts1'] == 1.0) & (df['ts2'] < frac_drydays[2])]  # & (df['ts2'] >= frac_drydays[3])
+                    math.isclose(df['ts1'], 1.0, rel_tol=1e-09, abs_tol=0.0) & math.isclose(df['ts2'], 1.0, rel_tol=1e-09, abs_tol=0.0),
+                    math.isclose(df['ts1'], 1.0, rel_tol=1e-09, abs_tol=0.0) & (df['ts2'] < 1.0) & (df['ts2'] >= frac_drydays[1]),
+                    math.isclose(df['ts1'], 1.0, rel_tol=1e-09, abs_tol=0.0) & (df['ts2'] < frac_drydays[1]) & (df['ts2'] >= frac_drydays[2]),
+                    math.isclose(df['ts1'], 1.0, rel_tol=1e-09, abs_tol=0.0) & (df['ts2'] < frac_drydays[2])]  # & (df['ts2'] >= frac_drydays[3])
                 choices = [0, 1, 2, 3]
 
                 # *** dp 27/11/2019 *** - commented out line below so changed to default=0

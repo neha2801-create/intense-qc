@@ -13,6 +13,7 @@ from scipy.spatial import KDTree
 
 from .gauge import Gauge
 from . import utils
+import math
 
 try:
     trend = importr('trend')
@@ -657,9 +658,9 @@ class Qc:
         df['next'] = df.shift(-1)['val']
 
         # Look for streaks of consecutive zeros followed by a wet hour
-        start_inds = np.flatnonzero(((df.prev > 0.0) | (np.isnan(df.prev))) & (df.val == 0.0) &
-                                    (df.next == 0.0))
-        end_inds = np.flatnonzero((df.prev == 0.0) & (df.val == 0.0) &
+        start_inds = np.flatnonzero(((df.prev > 0.0) | (np.isnan(df.prev))) & math.isclose(df.val, 0.0, rel_tol=1e-09, abs_tol=0.0) &
+                                    math.isclose(df.next, 0.0, rel_tol=1e-09, abs_tol=0.0))
+        end_inds = np.flatnonzero(math.isclose(df.prev, 0.0, rel_tol=1e-09, abs_tol=0.0) & math.isclose(df.val, 0.0, rel_tol=1e-09, abs_tol=0.0) &
                                   ((df.next > 0.0) | (np.isnan(df.next)))) + 1
 
         # Check whether any periods identified (if not then may be a very high
