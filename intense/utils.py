@@ -939,7 +939,7 @@ def create_kdtree_monthly_data(path):
         monthly_names = []
         monthly_dates = []
         monthly_coords = []
-        monthly_info.readline()
+        monthly_info.readline(5_000_000)
 
         for line in monthly_info:
             line_list = [line[0:10], line[11:54], line[54:62], line[62:73], line[73:79], line[125:135], line[137:147]]
@@ -977,7 +977,7 @@ def create_kdtree_daily_data(path):
         daily_dates = []
         daily_coords = []
 
-        daily_info.readline()
+        daily_info.readline(5_000_000)
 
         for line in daily_info:
             line_list = [line[0:10], line[11:54], line[54:62], line[62:73], line[73:79], line[125:135], line[137:147]]
@@ -1021,7 +1021,7 @@ def create_kdtree_hourly_data(path):
         hourly_n_coords_t = []
         hourly_n_paths_t = []
 
-        hourlyn_info.readline()
+        hourlyn_info.readline(5_000_000)
 
         for line in hourlyn_info:
             sid, lat, lon, sd, ed, elv, hpath = line.rstrip().split(",")
