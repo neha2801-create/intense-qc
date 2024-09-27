@@ -1300,7 +1300,7 @@ def read_intense_qc(path_or_stream: Union[IO, str], only_metadata: bool = False)
             with open(path_or_stream, 'rb') as f:
                 while True:
                     try:
-                        key, val = f.readline().strip().split(':', maxsplit=1)
+                        key, val = f.readline(5_000_000).strip().split(':', maxsplit=1)
                         key = key.lower()
                         metadata.append((key.strip(), val.strip()))
                     except:
@@ -1316,7 +1316,7 @@ def read_intense_qc(path_or_stream: Union[IO, str], only_metadata: bool = False)
             with open(path_or_stream, 'r') as f:
                 while True:
                     try:
-                        key, val = f.readline().strip().split(':', maxsplit=1)
+                        key, val = f.readline(5_000_000).strip().split(':', maxsplit=1)
                         key = key.lower()
                         metadata.append((key.strip(), val.strip()))
                     except:
