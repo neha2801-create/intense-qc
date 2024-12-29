@@ -168,7 +168,7 @@ def read_intense(path_or_stream: Union[str, IO], only_metadata: bool = False) ->
         try:
             with open(path_or_stream, 'rb') as f:
                 while True:
-                    key, val = f.readline().strip().split(':', maxsplit=1)
+                    key, val = f.readline(5_000_000).strip().split(':', maxsplit=1)
                     key = key.lower()
                     metadata.append((key.strip(), val.strip()))
                     if 'other' in metadata[-1][0].lower():
@@ -180,7 +180,7 @@ def read_intense(path_or_stream: Union[str, IO], only_metadata: bool = False) ->
         except:
             with open(path_or_stream, 'r') as f:
                 while True:
-                    key, val = f.readline().strip().split(':', maxsplit=1)
+                    key, val = f.readline(5_000_000).strip().split(':', maxsplit=1)
                     key = key.lower()
                     metadata.append((key.strip(), val.strip()))
                     if 'other' in metadata[-1][0].lower():
